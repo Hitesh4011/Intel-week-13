@@ -9,18 +9,15 @@ st.set_page_config(page_title="Product Defect Detection", layout="wide")
 
 @st.cache_resource()
 def load_model():
+    model_path = os.path.join(os.path.dirname(__file__), "model.h5")
     try:
-        model_path = "model.h5"
         model = tf.keras.models.load_model(model_path)
         return model
     except Exception as e:
         st.error(f"Error loading model: {e}")
         raise
 
-try:
-    model = load_model()
-except Exception:
-    st.stop()  # Stop app if model load fails
+model = load_model()
 
 st.write("Model loaded!")
 
