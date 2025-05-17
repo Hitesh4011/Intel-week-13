@@ -11,10 +11,10 @@ st.set_page_config(page_title="Product Defect Detection", layout="wide")
 model_path = os.path.join(os.path.dirname(__file__), "model.h5")
 
 @st.cache_resource()
-def load_model():
+def load_model(model_path):
     return tf.keras.models.load_model(model_path)
 
-model = load_model()
+model = load_model(model_path)
 
 # Labels hardcoded, no external file needed
 labels = {0: "Normal", 1: "Defective"}
