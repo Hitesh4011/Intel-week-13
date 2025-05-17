@@ -1,4 +1,11 @@
 import streamlit as st
+import numpy as np
+import tensorflow as tf
+from PIL import Image
+import os
+import streamlit as st
+
+
 st.set_page_config(page_title="Product Defect Detection", layout="wide")
 
 st.title("📦 Product Defect Detection")
