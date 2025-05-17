@@ -23,7 +23,7 @@ def load_my_model():
         st.stop()  # This will stop the app if model fails to load
 
 # Load model at startup
-model = load_my_model()
+# model = load_my_model()
 
 # Labels
 labels = {0: "Normal", 1: "Defective"}
