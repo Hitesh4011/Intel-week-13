@@ -7,20 +7,20 @@ import os
 # Page config
 st.set_page_config(page_title="Product Defect Detection", layout="wide")
 
-@st.cache_resource()
-def load_my_model():
-    try:
-        # This will look for model.h5 in the same directory as your script
-        model = load_model('model.h5')
-        st.success("✅ Model loaded successfully!")
-        return model
-    except Exception as e:
-        st.error(f"❌ Error loading model: {str(e)}")
-        st.error("Please ensure:")
-        st.error("1. 'model.h5' exists in your repository")
-        st.error("2. The file is not corrupted")
-        st.error("3. The model is compatible with your TensorFlow version")
-        st.stop()  # This will stop the app if model fails to load
+# @st.cache_resource()
+# def load_my_model():
+#     try:
+#         # This will look for model.h5 in the same directory as your script
+#         model = load_model('model.h5')
+#         st.success("✅ Model loaded successfully!")
+#         return model
+#     except Exception as e:
+#         st.error(f"❌ Error loading model: {str(e)}")
+#         st.error("Please ensure:")
+#         st.error("1. 'model.h5' exists in your repository")
+#         st.error("2. The file is not corrupted")
+#         st.error("3. The model is compatible with your TensorFlow version")
+#         st.stop()  # This will stop the app if model fails to load
 
 # Load model at startup
 # model = load_my_model()
