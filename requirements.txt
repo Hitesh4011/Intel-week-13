@@ -3,3 +3,4 @@ numpy
 h5py==3.9.0
 tensorflow-cpu==2.11.0
 Pillow
+onnxruntime
