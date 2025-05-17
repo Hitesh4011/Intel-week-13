@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image
 import os
 import streamlit as st
-
+import onnxruntime as ort
 
 
 st.set_page_config(page_title="Product Defect Detection", layout="wide")
