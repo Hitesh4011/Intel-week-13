@@ -22,7 +22,7 @@ try:
 except Exception:
     st.stop()  # Stop app if model load fails
 
-st.write("Model loaded!"
+st.write("Model loaded!")
 
 # Labels hardcoded, no external file needed
 labels = {0: "Normal", 1: "Defective"}
