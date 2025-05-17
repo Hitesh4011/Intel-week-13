@@ -1,9 +1,17 @@
+import os
 import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
-def load_labels(path="labels.txt"):
+# Get absolute path of the folder where this script is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Paths for model and labels file
+MODEL_PATH = os.path.join(BASE_DIR, "model.h5")
+LABELS_PATH = os.path.join(BASE_DIR, "labels.txt")
+
+def load_labels(path=LABELS_PATH):
     labels = {}
     with open(path, "r") as f:
         for line in f:
@@ -14,7 +22,10 @@ def load_labels(path="labels.txt"):
     return labels
 
 @st.cache_resource
-def load_model(path="model.h5"):
+def load_model(path=MODEL_PATH):
+    if not os.path.exists(path):
+        st.error(f"Model file not found at path: {path}")
+        return None
     return tf.keras.models.load_model(path)
 
 def preprocess_image(image: Image.Image, target_size=(224, 224)):
@@ -30,12 +41,12 @@ st.write("Upload an image of the product to classify it as **Normal** or **Defec
 
 uploaded_file = st.file_uploader("Upload an image of the product:", type=["jpg", "jpeg", "png"])
 
-if uploaded_file is not None:
+model = load_model()
+labels = load_labels()
+
+if model is not None and uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_container_width=True)
-
-    model = load_model()
-    labels = load_labels()
 
     input_arr = preprocess_image(image)
     predictions = model.predict(input_arr)[0]
@@ -50,3 +61,5 @@ if uploaded_file is not None:
     confidence = predictions[predicted_index]
 
     st.write(f"## Final Prediction: {predicted_label} ({confidence*100:.2f}%)")
+elif uploaded_file is None:
+    st.info("Please upload an image to get prediction.")
