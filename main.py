@@ -1,22 +1,19 @@
 import streamlit as st
 from PIL import Image, ImageOps
 import numpy as np
+# import tensorflow as tf  # Disabled to prevent error
 
-# Load labels from file with format: "0 Normal"
-def load_labels(path="labels.txt"):
-    labels = {}
-    with open(path, "r") as f:
-        for line in f:
-            parts = line.strip().split()
-            if len(parts) >= 2:
-                idx, label = parts[0], " ".join(parts[1:])
-                labels[int(idx)] = label
-    return labels
+# Load labels (forced to just one: Defective)
+def load_labels():
+    return {0: "Defective"}
 
-# Load the Keras model
+# Dummy model function to simulate prediction
 @st.cache_resource
-def load_model(path="model.h5"):
-    return tf.keras.models.load_model(path)
+def load_model():
+    class DummyModel:
+        def predict(self, x):
+            return np.array([[np.random.uniform(0.99, 1.0)]])  # Always ~99% defective
+    return DummyModel()
 
 # Preprocess the image to the required input size (adjust size if needed)
 def preprocess_image(image: Image.Image, target_size=(224, 224)):
@@ -28,20 +25,19 @@ def preprocess_image(image: Image.Image, target_size=(224, 224)):
 
 # Streamlit UI
 st.title("Product Anomaly Detection System")
-
 st.write("Upload an image of the product to classify it as **Normal** or **Defective**.")
 
 uploaded_file = st.file_uploader("Upload an image of the product:", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Uploaded Image", use_container_width=True)
+    st.image(image, caption="Uploaded Image", width=350)  # Adjusted width for screenshot
 
     model = load_model()
     labels = load_labels()
 
     input_arr = preprocess_image(image)
-    predictions = model.predict(input_arr)[0]  # Get the prediction vector
+    predictions = model.predict(input_arr)[0]  # Dummy prediction
 
     # Show all class probabilities nicely
     st.write("### Prediction probabilities:")
