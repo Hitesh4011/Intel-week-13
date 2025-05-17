@@ -7,14 +7,22 @@ import os
 # Page config
 st.set_page_config(page_title="Product Defect Detection", layout="wide")
 
-# Model file path (assumed to be in the same folder)
-model_path = os.path.join(os.path.dirname(__file__), "model.h5")
-
 @st.cache_resource()
-def load_model(model_path):
-    return tf.keras.models.load_model(model_path)
+def load_model():
+    try:
+        model_path = "model.h5"
+        model = tf.keras.models.load_model(model_path)
+        return model
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        raise
 
-model = load_model(model_path)
+try:
+    model = load_model()
+except Exception:
+    st.stop()  # Stop app if model load fails
+
+st.write("Model loaded!"
 
 # Labels hardcoded, no external file needed
 labels = {0: "Normal", 1: "Defective"}
