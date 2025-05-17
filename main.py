@@ -13,7 +13,7 @@ def load_model():
     return tf.keras.models.load_model(model_path)
 
 # Load model at startup
-model = load_model()
+# model = load_model()
 
 # Labels
 labels = {0: "Normal", 1: "Defective"}
@@ -39,7 +39,7 @@ labels = {0: "Normal", 1: "Defective"}
 st.title("📦 Product Defect Detection")
 st.write("Upload an image of the product to check if it is Normal or Defective.")
 
-uploaded_file = st.file_uploader("Choose product image", type=["png", "jpg", "jpeg"])
+# uploaded_file = st.file_uploader("Choose product image", type=["png", "jpg", "jpeg"])
 
 # if uploaded_file is not None:
 #     try:
