@@ -1,5 +1,4 @@
 import streamlit as st
-import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
@@ -15,7 +14,7 @@ def load_labels(path="labels.txt"):
     return labels
 
 # Load the Keras model
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_model(path="model.h5"):
     return tf.keras.models.load_model(path)
 
@@ -36,7 +35,7 @@ uploaded_file = st.file_uploader("Upload an image of the product:", type=["jpg",
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
     model = load_model()
     labels = load_labels()
