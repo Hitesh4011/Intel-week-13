@@ -13,7 +13,7 @@ def load_model():
     return tf.keras.models.load_model(model_path)
 
 # Load model at startup
-model = load_my_model()
+model = load_model()
 
 # Labels
 labels = {0: "Normal", 1: "Defective"}
