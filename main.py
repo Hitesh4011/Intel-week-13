@@ -1,29 +1,19 @@
 import streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model  # More specific import
+from tensorflow as tf  # More specific import
 from PIL import Image
 import os
 
 # Page config
 st.set_page_config(page_title="Product Defect Detection", layout="wide")
 
-# @st.cache_resource()
-# def load_my_model():
-#     try:
-#         # This will look for model.h5 in the same directory as your script
-#         model = load_model('model.h5')
-#         st.success("✅ Model loaded successfully!")
-#         return model
-#     except Exception as e:
-#         st.error(f"❌ Error loading model: {str(e)}")
-#         st.error("Please ensure:")
-#         st.error("1. 'model.h5' exists in your repository")
-#         st.error("2. The file is not corrupted")
-#         st.error("3. The model is compatible with your TensorFlow version")
-#         st.stop()  # This will stop the app if model fails to load
+@st.cache_resource()
+def load_model():
+    model_path = os.path.join(os.path.dirname(__file__), "model.h5")
+    return tf.keras.models.load_model(model_path)
 
 # Load model at startup
-# model = load_my_model()
+model = load_my_model()
 
 # Labels
 labels = {0: "Normal", 1: "Defective"}
