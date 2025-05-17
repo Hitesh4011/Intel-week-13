@@ -36,7 +36,7 @@ if uploaded_file is not None:
     # model = load_model()
     # labels = load_labels()
 
-    input_arr = preprocess_image(image)
+    # input_arr = preprocess_image(image)
     # predictions = model.predict(input_arr)[0]  # Dummy prediction
 
     # Show all class probabilities nicely
