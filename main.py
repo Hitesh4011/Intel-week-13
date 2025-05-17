@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-from tensorflow as tf  # More specific import
+import tensorflow as tf  # More specific import
 from PIL import Image
 import os
 
